@@ -1,21 +1,41 @@
 def depose(clients, params):
-    pass
+    name, sum = params.split()
+    if name not in clients:
+        clients[name] = 0
+    clients[name] += int(sum)
 
 
 def withdraw(clients, params):
-    pass
+    name, sum = params.split()
+    if name not in clients:
+        clients[name] = 0
+    clients[name] -= int(sum)
 
 
 def show_balance(clients, params):
-    pass
+    name = params.split()[0]
+    if name not in clients:
+        print('ERROR')
+    else:
+        print(clients[name])
 
 
 def transfer(clients, params):
-    pass
+    name1, name2, sum = params.split()
+    if name1 not in clients:
+        clients[name1] = 0
+    if name2 not in clients:
+        clients[name2] = 0
+    depose(clients, name2 + ' ' + sum)
+    withdraw(clients, name1 + ' ' + sum)
 
 
 def income(clients, params):
-    pass
+    p = int(params)
+    for client in clients:
+        if clients[client] > 0:
+            clients[client] *= 1 + p / 100
+            clients[client] = int(clients[client])
 
 
 bank_accounts = {}
